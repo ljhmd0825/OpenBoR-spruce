@@ -1,4 +1,4 @@
-name: Build OpenBOR aarch64
+name: Build OpenBOR-FFLNS aarch64
 
 on:
   push:
@@ -78,7 +78,7 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
-          name: OpenBOR-aarch64-linux
+          name: OpenBOR-FFLNS-aarch64
           path: output/
           if-no-files-found: error
           retention-days: 30
