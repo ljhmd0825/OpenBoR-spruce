@@ -28,6 +28,7 @@ cd openbor/engine
 echo "=== Building OpenBOR for aarch64 ==="
 
 [ -f version.sh ] && bash version.sh
+sed -i 's/vorbis_fpu_control fpu;/\/\/vorbis_fpu_control fpu;/' source/webmlib/samplecvt.c
 make BUILD_LINUX=1 \
     CC=${CROSS}-gcc \
     GCC_TARGET=aarch64-linux-gnu \
