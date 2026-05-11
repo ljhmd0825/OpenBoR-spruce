@@ -34,9 +34,11 @@ cd openbor/engine
 # ============================================================
 echo "=== Building OpenBOR for aarch64 ==="
 make BUILD_LINUX=1 \
-    CC=${CROSS}-gcc \
-    GCC_TARGET=aarch64-linux-gnu \
+    CC=aarch64-linux-gnu-gcc \
+    ARCHFLAGS="" \
+    BUILD_AMD64=1 \
     SDKPATH=/usr \
+    LIBRARIES=/usr/lib/aarch64-linux-gnu \
     -j$(nproc)
 
 cd /build
