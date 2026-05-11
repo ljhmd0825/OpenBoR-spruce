@@ -37,9 +37,12 @@ make BUILD_LINUX=1 \
     CC=aarch64-linux-gnu-gcc \
     ARCHFLAGS="" \
     BUILD_AMD64=1 \
+    NO_STRIP=1 \
     SDKPATH=/usr \
     LIBRARIES=/usr/lib/aarch64-linux-gnu \
     -j$(nproc)
+
+aarch64-linux-gnu-strip OpenBOR.elf -o OpenBOR
 
 cd /build
 
