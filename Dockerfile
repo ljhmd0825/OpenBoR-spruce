@@ -32,8 +32,7 @@ RUN dpkg --add-architecture arm64 && \
         && rm -rf /var/lib/apt/lists/*
 
 COPY build.sh /build.sh
-RUN chmod +x /build.sh
+COPY build_official.sh /build_official.sh
+RUN chmod +x /build.sh /build_official.sh
 
 WORKDIR /build
-
-ENTRYPOINT ["/build.sh"]
