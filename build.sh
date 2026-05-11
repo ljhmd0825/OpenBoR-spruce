@@ -33,8 +33,9 @@ cd openbor/engine
 # 빌드
 # ============================================================
 echo "=== Building OpenBOR for aarch64 ==="
-make BUILD_RASPBERRY=1 \
+make BUILD_LINUX=1 \
     CC=${CROSS}-gcc \
+    GCC_TARGET=aarch64-linux-gnu \
     SDKPATH=/usr \
     -j$(nproc)
 
