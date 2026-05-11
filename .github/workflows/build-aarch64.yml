@@ -1,0 +1,84 @@
+name: Build OpenBOR aarch64
+
+on:
+  push:
+    branches: ["v6330-fflns"]
+  pull_request:
+    branches: ["v6330-fflns"]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      # Docker 레이어 캐시 (빌드 환경 재빌드 방지)
+      - name: Cache Docker layers
+        uses: actions/cache@v4
+        with:
+          path: /tmp/.buildx-cache
+          key: ${{ runner.os }}-buildx-${{ hashFiles('Dockerfile') }}
+          restore-keys: |
+            ${{ runner.os }}-buildx-
+
+      # ccache 캐시 (컴파일 결과 재사용)
+      - name: Cache ccache
+        uses: actions/cache@v4
+        with:
+          path: ccache
+          key: ${{ runner.os }}-ccache-openbor-aarch64-${{ github.sha }}
+          restore-keys: |
+            ${{ runner.os }}-ccache-openbor-aarch64-
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Build Docker image
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          load: true
+          tags: openbor-builder:latest
+          cache-from: type=local,src=/tmp/.buildx-cache
+          cache-to: type=local,dest=/tmp/.buildx-cache-new,mode=max
+
+      # 캐시 rotation (stale cache 방지)
+      - name: Rotate buildx cache
+        run: |
+          rm -rf /tmp/.buildx-cache
+          mv /tmp/.buildx-cache-new /tmp/.buildx-cache
+
+      - name: Prepare output and ccache directories
+        run: |
+          mkdir -p output
+          mkdir -p ccache
+
+      - name: Run build in Docker
+        run: |
+          docker run --rm \
+            -v "${{ github.workspace }}/output:/output" \
+            -v "${{ github.workspace }}/ccache:/ccache" \
+            -e OUTPUT_DIR=/output \
+            -e CCACHE_DIR=/ccache \
+            -e OPENBOR_REPO=https://github.com/gonzalomvp/openbor.git \
+            -e OPENBOR_BRANCH=v6330-fflns \
+            openbor-builder:latest
+
+      - name: Verify binary
+        run: |
+          echo "=== Output files ==="
+          ls -lh output/
+          echo "=== ELF info ==="
+          file output/OpenBOR
+          readelf -h output/OpenBOR | grep -E "Class|Machine|Type"
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: OpenBOR-aarch64-linux
+          path: output/OpenBOR
+          if-no-files-found: error
+          retention-days: 30
