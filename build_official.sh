@@ -31,8 +31,10 @@ echo "=== Building OpenBOR for aarch64 ==="
 make BUILD_LINUX=1 \
     CC=${CROSS}-gcc \
     GCC_TARGET=aarch64-linux-gnu \
+    ARCHFLAGS="" \
     NO_STRIP=1 \
     SDKPATH=/usr \
+    LIBRARIES=/usr/lib/${CROSS} \
     -j$(nproc)
 
 # strip
