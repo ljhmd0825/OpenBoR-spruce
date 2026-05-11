@@ -27,6 +27,8 @@ cd openbor/engine
 # ============================================================
 echo "=== Building OpenBOR for aarch64 ==="
 [ -f version.sh ] && bash version.sh
+# Disable x86-only MMX inline asm in 2xSaI.c on aarch64
+sed -i 's/int GetMMX(void)/int GetMMX(void) { return 0; } \/\/ patched\nint GetMMX_disabled(void)/' source/gfxlib/2xSaI.c
 make BUILD_LINUX=1 \
     CC=${CROSS}-gcc \
     ARCHFLAGS="" \
