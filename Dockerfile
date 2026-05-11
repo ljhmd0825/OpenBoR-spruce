@@ -21,6 +21,7 @@ RUN dpkg --add-architecture arm64 && \
         nasm \
         # OpenBOR arm64 cross-compile dependencies
         libsdl2-dev:arm64 \
+        libsdl2-gfx-dev:arm64 \
         libpng-dev:arm64 \
         zlib1g-dev:arm64 \
         libvorbis-dev:arm64 \
