@@ -26,18 +26,15 @@ cd openbor/engine
 # 빌드
 # ============================================================
 echo "=== Building OpenBOR for aarch64 ==="
+
 [ -f version.sh ] && bash version.sh
-# Disable x86-only MMX inline asm in 2xSaI.c on aarch64
-sed -i 's/int GetMMX(void)/int GetMMX(void) { return 0; } \/\/ patched\nint GetMMX_disabled(void)/' source/gfxlib/2xSaI.c
 make BUILD_LINUX=1 \
     CC=${CROSS}-gcc \
-    ARCHFLAGS="" \
-    BUILD_AMD64=1 \
-    BUILD_MMX=0 \
+    GCC_TARGET=aarch64-linux-gnu \
     NO_STRIP=1 \
     SDKPATH=/usr \
-    LIBRARIES=/usr/lib/${CROSS} \
     -j$(nproc)
+
 # strip
 ${CROSS}-strip OpenBOR.elf -o OpenBOR
 cd /build
