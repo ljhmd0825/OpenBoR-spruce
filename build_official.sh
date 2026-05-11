@@ -35,6 +35,7 @@ make BUILD_LINUX=1 \
     NO_STRIP=1 \
     SDKPATH=/usr \
     LIBRARIES=/usr/lib/${CROSS} \
+    "CFLAGS+=-Wno-error=unused-variable" \
     -j$(nproc)
 
 # strip
