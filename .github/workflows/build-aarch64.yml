@@ -65,7 +65,7 @@ jobs:
             -e CCACHE_DIR=/ccache \
             -e OPENBOR_REPO=https://github.com/gonzalomvp/openbor.git \
             -e OPENBOR_BRANCH=v6330-fflns \
-            openbor-builder:latest
+            openbor-builder:latest /build_fflns.sh
 
       - name: Verify binary
         run: |
