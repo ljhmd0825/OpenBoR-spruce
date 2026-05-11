@@ -61,7 +61,7 @@ jobs:
             -e CCACHE_DIR=/ccache \
             -e OPENBOR_REPO=https://github.com/DCurrent/openbor.git \
             -e OPENBOR_BRANCH=${{ github.event.inputs.ref }} \
-            openbor-builder:latest
+            openbor-builder:latest /build_official.sh
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
