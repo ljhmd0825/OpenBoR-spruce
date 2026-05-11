@@ -32,6 +32,7 @@ cd openbor/engine
 # 빌드
 # ============================================================
 echo "=== Building OpenBOR for aarch64 ==="
+[ -f version.sh ] && bash version.sh
 make BUILD_LINUX=1 \
     CC=${CROSS}-gcc \
     ARCHFLAGS="" \
