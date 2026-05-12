@@ -49,6 +49,8 @@ echo "=== Building OpenBOR for aarch64 ==="
 cd engine
 [ -f version.sh ] && bash version.sh
 make BUILD_LINUX=1 \
+    BUILD_OPENGL=0 \
+    BUILD_LOADGL=0 \
     CC=${CROSS}-gcc \
     GCC_TARGET=aarch64-linux-gnu \
     ARCHFLAGS="" \
