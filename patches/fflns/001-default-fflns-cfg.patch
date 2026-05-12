@@ -1,0 +1,20 @@
+--- a/engine/openbor.c
++++ b/engine/openbor.c
+@@ -2493,7 +2493,7 @@
+     FILE *handle = NULL;
+     char path[MAX_BUFFER_LEN] = {""};
+     getBasePath(path, "Saves", 0);
+-    strcat(path, "default.cfg");
++    strcat(path, "default-fflns.cfg");
+     handle = fopen(path, "wb");
+     if(handle == NULL)
+     {
+@@ -2542,7 +2542,7 @@
+     FILE *handle = NULL;
+     char path[MAX_BUFFER_LEN] = {""};
+     getBasePath(path, "Saves", 0);
+-    strcat(path, "default.cfg");
++    strcat(path, "default-fflns.cfg");
+     clearsettings();
+     handle = fopen(path, "rb");
+     if(handle == NULL)
