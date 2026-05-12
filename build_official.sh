@@ -50,6 +50,8 @@ cd engine
 [ -f version.sh ] && bash version.sh
 sed -i 's/vorbis_fpu_control fpu;/\/\/vorbis_fpu_control fpu;/' source/webmlib/samplecvt.c
 make BUILD_LINUX=1 \
+    BUILD_OPENGL=0 \
+    BUILD_LOADGL=0 \
     CC=${CROSS}-gcc \
     GCC_TARGET=aarch64-linux-gnu \
     ARCHFLAGS="" \
