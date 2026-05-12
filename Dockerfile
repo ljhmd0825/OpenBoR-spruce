@@ -33,6 +33,7 @@ RUN dpkg --add-architecture arm64 && \
 
 COPY build_fflns.sh /build_fflns.sh
 COPY build_official.sh /build_official.sh
+COPY patches/ /patches/
 RUN chmod +x /build_fflns.sh /build_official.sh
 
 WORKDIR /build
