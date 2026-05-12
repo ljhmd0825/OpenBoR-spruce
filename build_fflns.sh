@@ -31,10 +31,16 @@ cd openbor
 for patch in /patches/common/*.py; do
     [ -f "$patch" ] && python3 "$patch" && echo "Applied: $(basename $patch)"
 done
+for patch in /patches/common/*.patch; do
+    [ -f "$patch" ] && patch -p1 < "$patch" && echo "Applied: $(basename $patch)"
+done
 
 # Apply 64-bit-specific patches
-for patch in /patches/official/*.py; do
+for patch in /patches/fflns/*.py; do
     [ -f "$patch" ] && python3 "$patch" && echo "Applied: $(basename $patch)"
+done
+for patch in /patches/fflns/*.patch; do
+    [ -f "$patch" ] && patch -p1 < "$patch" && echo "Applied: $(basename $patch)"
 done
 
 # Building
