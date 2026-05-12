@@ -37,12 +37,10 @@ for patch in /patches/official/*.py; do
     [ -f "$patch" ] && python3 "$patch" && echo "Applied: $(basename $patch)"
 done
 
-cd openbor/engine
-
 # Building
 
 echo "=== Building OpenBOR for aarch64 ==="
-cd openbor/engine
+cd engine
 [ -f version.sh ] && bash version.sh
 sed -i 's/vorbis_fpu_control fpu;/\/\/vorbis_fpu_control fpu;/' source/webmlib/samplecvt.c
 make BUILD_LINUX=1 \
